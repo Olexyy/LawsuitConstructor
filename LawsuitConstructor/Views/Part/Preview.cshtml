@@ -1,0 +1,26 @@
+﻿@model HtmlString
+
+@{
+    ViewBag.Title = ViewBag.Title = MVC.Translate.It("Preview");
+}
+
+<h2> @ViewBag.Title </h2>
+
+@using (Html.BeginForm()) { 
+    @Html.AntiForgeryToken()  
+    @Html.ValidationSummary(true)
+<fieldset style="background-color:#fff">
+        <div class="editor-field">             
+             @Model
+        </div>
+    </fieldset>
+}
+<div>
+    <a href="javascript:history.back()">Назад</a>
+</div>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }

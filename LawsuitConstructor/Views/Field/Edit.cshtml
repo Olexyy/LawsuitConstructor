@@ -1,0 +1,63 @@
+﻿@model MVC.Models.Field
+
+@{
+    ViewBag.Title = MVC.Translate.It("Change field");
+}
+
+<script src="@Url.Content("~/Scripts/custom/toggle-field-onchange.js")"></script>
+
+<h2> @ViewBag.Title </h2>
+@using (Html.BeginForm()) { @Html.AntiForgeryToken()  @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @MVC.Translate.It("Name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FieldName)
+            @Html.ValidationMessageFor(model => model.FieldName)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Content type")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.FieldDataType, MVC.Defines.FieldDataTypes, new { @id = "trigger" })
+            @Html.ValidationMessageFor(model => model.FieldDataType)
+        </div>
+        <div id="toggle"> </div>
+        <div class="editor-label toggle">
+            @MVC.Translate.It("Marker") <description class="description">@MVC.Translate.It(" (only letters and numbers without spaces)")</description>
+        </div>
+        <div class="editor-field toggle">
+            @Html.EditorFor(model => model.FieldMarker)
+            @Html.ValidationMessageFor(model => model.FieldMarker)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Text")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FieldText)
+            @Html.ValidationMessageFor(model => model.FieldText)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Weight in list")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FieldWeight)
+            @Html.ValidationMessageFor(model => model.FieldWeight)
+        </div>
+        <p>
+            <input type="submit" value="@MVC.Translate.It("Change")" />
+            <button name="button" onclick="submit" value="remove">@MVC.Translate.It("Remove")</button>
+        </p>
+    </fieldset>
+}
+
+<div> 
+    @Html.ActionLink(MVC.Translate.It("To list"), "Index", "Field")
+</div>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }

@@ -1,0 +1,13 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = @MVC.Translate.It("Error");
+}
+
+<hgroup class="title">
+    <h1 class="error"> ViewBag.Title </h1>
+    <h2 class="error"> @MVC.Translate.It("Request can't be resolved because of error") </h2>
+    @if (Model.Exception != null){
+        <h3 class="error"> @Model.Exception.Message.ToString() </h3>
+    }
+</hgroup>

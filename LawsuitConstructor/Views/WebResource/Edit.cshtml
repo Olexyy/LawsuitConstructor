@@ -1,0 +1,77 @@
+﻿@model MVC.Models.WebResource
+@{
+    ViewBag.Title = MVC.Translate.It(Model.WebResourceKey);
+    bool IsStatic = MVC.Defines.StaticWebResoucesList.Contains(Model.WebResourceKey);
+}
+<script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/ckeditor/ckeditor-config.js")"></script>
+<h2> @ViewBag.Title </h2>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        @if (IsStatic){
+            @Html.HiddenFor(model => model.WebResourceKey) 
+        }
+        else{
+            <div class="editor-label">
+                @MVC.Translate.It("Name")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.WebResourceKey)
+                @Html.ValidationMessageFor(model => model.WebResourceKey)
+            </div>
+        }
+        <div class="editor-label">
+            @MVC.Translate.It("Title")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WebResourceTitle)
+            @Html.ValidationMessageFor(model => model.WebResourceTitle)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Body")
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.WebResourceBody, new { @id = "editor" })
+            <script type="text/javascript"> CKEDITOR.replace('editor'); </script>
+            @Html.ValidationMessageFor(model => model.WebResourceBody)           
+        </div>
+        @if(!IsStatic)
+        {
+        <ul>
+            @MVC.Translate.It("Lawsuits"):
+            @if (Model.Lawsuits.ToList().Count > 0)
+            {
+                foreach (MVC.Models.Lawsuit lawsuit in Model.Lawsuits)
+                {
+                    <li>@lawsuit.LawsuitName</li>
+                }
+            }
+            else
+            {
+                <li>@MVC.Translate.It("List is empty")</li>
+            }
+        </ul>
+        }
+        <p>
+            <input id="submit" type="submit" value="@MVC.Translate.It("Change")" />
+            @if(!IsStatic)
+            {
+                <button name="button" value="remove">@MVC.Translate.It("Remove")</button>
+            }
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink(@MVC.Translate.It("To list"), "Index", "WebResource")
+</div>
+<script>
+    initSample();
+</script>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }

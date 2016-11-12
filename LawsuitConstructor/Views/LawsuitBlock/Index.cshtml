@@ -1,0 +1,72 @@
+﻿@model MVC.Models.LawsuitWithBlockListData
+@{
+    ViewBag.Title = Model.Lawsuit.LawsuitName;
+    int count = 0;
+    foreach (string key in Model.Blocks.Keys)
+    {
+        count += Model.Blocks[key].Count;
+    }
+    var groups = ViewData["Groups"] as List<MVC.Models.Group>;
+}
+<script src="@Url.Content("~/Scripts/custom/toggle-onclick.js")"></script>
+<script src="@Url.Content("~/Scripts/custom/drag-drop.js")"></script>
+<h2 id="lawsuit" lawsuitId="@Model.Lawsuit.LawsuitId"> @ViewBag.Title </h2>
+
+<table id="lawsuit-block">
+    <tr>
+        <td>
+            <h1>@MVC.Translate.It("Existing blocks")</h1>
+        </td>
+        <td>
+            <h1>@MVC.Translate.It("Added blocks")</h1>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id="listDiv">
+                <ul class="toggle1" id="list">
+                @if (count == 0)
+                {
+                    <p> @MVC.Translate.It("List is empty") </p>
+                }
+                else
+                {
+                    foreach (string key in Model.Blocks.Keys){
+                    <li> @key 
+                        <ul class="collapsible1 toggle2">
+                            @foreach(MVC.Models.Group group in groups){
+                            <li>@group.GroupName
+                                <ul class="collapsible2">
+                                    @foreach (MVC.Models.Block block in Model.Blocks[key])
+                                    {
+                                        <li draggable="true" id="@block.BlockId">@block.BlockName </li>
+                                    }
+                                </ul>
+                            </li>
+                            }
+                        </ul>
+                    </li>
+                    }
+                }
+                </ul>
+            </div>
+        </td>
+        <td>
+            <div id="selectedDiv">
+                <ul id="selected"></ul>
+            </div>
+        </td>
+    </tr>
+</table>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <button name="button" onclick="submit" value="preview">@MVC.Translate.It("Text preview")</button>
+        <button name="button" onclick="submit" value="fields">@MVC.Translate.It("Fields preview")</button>
+    </p> 
+}
+<p>
+    @Html.ActionLink(MVC.Translate.It("Lawsuits"), "Index", "Lawsuit") <br />
+    @Html.ActionLink(MVC.Translate.It("General list"), "General", "Admin") <br />
+    @Html.ActionLink(MVC.Translate.It("Administrative menu"), "Admin", "Admin")
+</p>

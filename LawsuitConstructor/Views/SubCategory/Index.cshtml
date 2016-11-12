@@ -1,0 +1,21 @@
+﻿@model List<MVC.Models.SubCategory>
+@{
+    ViewBag.Title = MVC.Translate.It("Subategories of lawsuits");
+    string message = (string)TempData["Message"];
+}
+<h2> @ViewBag.Title </h2>
+<h4> @message </h4>
+<div id="view-zone">
+    <ul>
+    @if(Model.Count == 0){
+        <p> @MVC.Translate.It("List is empty") </p>
+    }
+    @foreach(var subCategory in Model){
+        <li> @Html.ActionLink(@subCategory.SubCategoryName, "Edit", "SubCategory", new { subCategoryId = subCategory.SubCategoryId }, null) </li>
+    }
+    </ul>
+</div>
+<p>
+    @Html.ActionLink(MVC.Translate.It("New subcategory"), "Add", "Category")<br />
+@Html.ActionLink(MVC.Translate.It("Administrative menu"), "Admin", "Admin")
+</p>

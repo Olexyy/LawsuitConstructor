@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f99f0e9369d54813af5b03ceebff9876" Name="Diagram1">
+        <EntityTypeShape EntityType="LawsuitDBModel.Block" Width="1.5" PointX="1.125" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.Category" Width="1.5" PointX="4.625" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.Field" Width="1.5" PointX="1.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.Group" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.LawsuitBlock" Width="1.5" PointX="2.875" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.Lawsuit" Width="1.5" PointX="4.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.Part" Width="1.5" PointX="1.125" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.SubCategory" Width="1.5" PointX="4.625" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LawsuitDBModel.TextStyle" Width="1.5" PointX="2.875" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="LawsuitDBModel.FK_Blocks_Fields" ManuallyRouted="false" />
+        <AssociationConnector Association="LawsuitDBModel.FK_Blocks_Groups" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="LawsuitDBModel.FK_LawsuitBlock_Blocks" ManuallyRouted="false" />
+        <AssociationConnector Association="LawsuitDBModel.FK_Parts_Blocks" ManuallyRouted="false" />
+        <AssociationConnector Association="LawsuitDBModel.FK_SubCategory_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="LawsuitDBModel.FK_LawsuitBlocks_Lawsuits" ManuallyRouted="false" />
+        <AssociationConnector Association="LawsuitDBModel.FK_Lawsuits_SubCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="LawsuitDBModel.FK_Parts_TextStyles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LawsuitDBModel.WebResource" Width="1.5" PointX="6.375" PointY="0.5" />
+        <AssociationConnector Association="LawsuitDBModel.FK_Lawsuits_WebResource" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

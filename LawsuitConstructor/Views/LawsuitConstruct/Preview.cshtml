@@ -1,0 +1,36 @@
+﻿@model List<HtmlString>
+@{
+    ViewBag.Title =  MVC.Translate.It("Web portal of law help | Result");
+}
+
+<script src="@Url.Content("~/Scripts/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/ckeditor/ckeditor-config.js")"></script>
+<script src="@Url.Content("~/Scripts/file_saver/file-saver.min.js")"></script>
+<script src="@Url.Content("~/Scripts/ckeditor/plugins/save/plugin.js")"></script>
+<h2>Текст позову</h2>
+<form>
+<div id="editor" style="margin-left: -20px;">
+    @foreach (HtmlString block in Model)
+    {
+        @block
+    }
+</div>
+</form>
+<p> <button id="btn-save">Завантажити</button> </p>
+ @Html.ActionLink(@MVC.Translate.It("Back"), "Index", "Home") 
+<script>
+	initSample();
+</script>
+<script>
+    $("#btn-save").click(function () {
+        var el = $("#editor");
+        var text = create_html_doc($("#editor").html()); //($("#editor").html());
+        var filename = 'Позов';
+        var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        saveAs(blob, filename + '.doc');
+    });
+	function create_html_doc (text) {
+	    var doc = '<!DOCTYPE html><head><meta charset="utf-8"></head><body>' + text + '</body></html>'
+	    return doc;
+	}
+</script>

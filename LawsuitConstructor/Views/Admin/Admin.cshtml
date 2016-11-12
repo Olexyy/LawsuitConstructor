@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = MVC.Translate.It("Administrative menu");
+}
+<h2> @ViewBag.Title </h2>
+<div id="view-zone-admin-menu">
+    <ul>
+        <li>@Html.ActionLink(MVC.Translate.It("General list"), "General", "Admin")</li>
+        <description class="description"> @MVC.Translate.It("The overall structure of lawsuits that are within the categories and subcategories") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Categories of lawsuits"), "Index", "Category")</li>
+        <description class="description"> @MVC.Translate.It("Each category has subcategories, which are located lawsuits") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Subategories of lawsuits"), "Index", "SubCategory")</li>
+        <description class="description"> @MVC.Translate.It("Each subcategory contains one or more lawsuit") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Lawsuits"), "Index", "Lawsuit")</li>
+        <description class="description"> @MVC.Translate.It("Creating and editing lawsuits with pre-created blocks") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Groups of blocks"), "Index", "Group")</li>
+        <description class="description"> @MVC.Translate.It("Blocks can be created only in advance unspecified groups") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Blocks"), "Index", "Block")</li>
+        <description class="description"> @MVC.Translate.It("Lawsuit consist of blocks containing one or more parts of the text") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Text styles"), "Index", "TextStyle")</li>
+        <description class="description"> @MVC.Translate.It("Each text part should have a text style") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Fields"), "Index", "Field")</li>
+        <description class="description"> @MVC.Translate.It("Text parts of the blocks may have markers that are filled with the user through the fields") </description>
+        <li>@Html.ActionLink(MVC.Translate.It("Web resources"), "Index", "WebResource")</li>
+        <description class="description"> @MVC.Translate.It("Text Web resources of site") </description>
+    </ul>
+</div>

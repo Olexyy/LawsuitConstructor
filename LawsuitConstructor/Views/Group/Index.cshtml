@@ -1,0 +1,21 @@
+﻿@model List<MVC.Models.Group>
+@{
+    ViewBag.Title = MVC.Translate.It("Groups of blocks");
+    string message = (string)TempData["Message"];
+}
+<h2>@ViewBag.Title</h2>
+<h4> @message </h4>
+<div id="view-zone">
+    <ul>
+    @if(Model.Count == 0){
+        <p> @MVC.Translate.It("List is empty") </p>
+    }
+    @foreach(var group in Model){
+        <li> @Html.ActionLink(@group.GroupName, "Edit", "Group", new { groupId = group.GroupId }, null) </li>
+    }
+    </ul>
+</div>
+<p>
+    @Html.ActionLink(MVC.Translate.It("New group"), "Add", "Group") <br />
+    @Html.ActionLink(MVC.Translate.It("Administrative menu"), "Admin", "Admin")
+</p>

@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LawsuitDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="LawsuitDB" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="BlockStyles" EntityType="LawsuitDBModel.BlockStyle" />
+    <EntitySet Name="Categories" EntityType="LawsuitDBModel.Category" />
+    <EntitySet Name="Fields" EntityType="LawsuitDBModel.Field" />
+    <EntitySet Name="LawsuitBlocks" EntityType="LawsuitDBModel.LawsuitBlock" />
+    <EntitySet Name="Lawsuits" EntityType="LawsuitDBModel.Lawsuit" />
+    <EntitySet Name="SubCategories" EntityType="LawsuitDBModel.SubCategory" />
+    <AssociationSet Name="FK_SubCategory_Category" Association="LawsuitDBModel.FK_SubCategory_Category">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="SubCategories" EntitySet="SubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LawsuitBlocks_Lawsuits" Association="LawsuitDBModel.FK_LawsuitBlocks_Lawsuits">
+      <End Role="Lawsuits" EntitySet="Lawsuits" />
+      <End Role="LawsuitBlock" EntitySet="LawsuitBlocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Lawsuits_SubCategories" Association="LawsuitDBModel.FK_Lawsuits_SubCategories">
+      <End Role="SubCategories" EntitySet="SubCategories" />
+      <End Role="Lawsuits" EntitySet="Lawsuits" />
+    </AssociationSet>
+    <EntitySet Name="Blocks" EntityType="LawsuitDBModel.Block" />
+    <AssociationSet Name="FK_Blocks_BlockStyles" Association="LawsuitDBModel.FK_Blocks_BlockStyles">
+      <End Role="BlockStyle" EntitySet="BlockStyles" />
+      <End Role="Block" EntitySet="Blocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Blocks_Fields" Association="LawsuitDBModel.FK_Blocks_Fields">
+      <End Role="Field" EntitySet="Fields" />
+      <End Role="Block" EntitySet="Blocks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LawsuitBlock_Blocks" Association="LawsuitDBModel.FK_LawsuitBlock_Blocks">
+      <End Role="Block" EntitySet="Blocks" />
+      <End Role="LawsuitBlock" EntitySet="LawsuitBlocks" />
+    </AssociationSet>
+    <EntitySet Name="Parts" EntityType="LawsuitDBModel.Part" />
+    <AssociationSet Name="FK_Parts_Blocks" Association="LawsuitDBModel.FK_Parts_Blocks">
+      <End Role="Block" EntitySet="Blocks" />
+      <End Role="Part" EntitySet="Parts" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BlockStyle">
+    <Key>
+      <PropertyRef Name="BlockStyleId" />
+    </Key>
+    <Property Name="BlockStyleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="BlockStyleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="BlockStyleWeight" Type="Int32" Nullable="false" />
+    <Property Name="BlockStyleTag" Type="Int32" Nullable="false" />
+    <Property Name="BlockStyleMarginLeft" Type="Int32" Nullable="false" />
+    <Property Name="BlockStyleTextAlign" Type="Int32" Nullable="false" />
+    <Property Name="BlockStyleStong" Type="Boolean" Nullable="false" />
+    <Property Name="BlockStyleUnderline" Type="Boolean" Nullable="false" />
+    <Property Name="BlockStyleItalic" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Blocks" Relationship="LawsuitDBModel.FK_Blocks_BlockStyles" FromRole="BlockStyle" ToRole="Block" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="SubCategories" Relationship="LawsuitDBModel.FK_SubCategory_Category" FromRole="Categories" ToRole="SubCategories" />
+    <Property Type="Int32" Name="CategoryWeight" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Field">
+    <Key>
+      <PropertyRef Name="FieldId" />
+    </Key>
+    <Property Name="FieldId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FieldName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="FieldDataType" Type="Int32" Nullable="false" />
+    <Property Name="FieldText" Type="String" Nullable="false" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Name="FieldMarker" Type="String" MaxLength="150" Unicode="true" FixedLength="false" />
+    <Property Type="Int32" Name="FieldWeight" Nullable="false" />
+    <NavigationProperty Name="Blocks" Relationship="LawsuitDBModel.FK_Blocks_Fields" FromRole="Field" ToRole="Block" />
+  </EntityType>
+  <EntityType Name="LawsuitBlock">
+    <Key>
+      <PropertyRef Name="RelationId" />
+      <PropertyRef Name="LawsuitId" />
+      <PropertyRef Name="BlockId" />
+    </Key>
+    <Property Name="RelationId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LawsuitId" Type="Int32" Nullable="false" />
+    <Property Name="BlockId" Type="Int32" Nullable="false" />
+    <Property Type="Int32" Name="LawsuitBlockWeight" Nullable="false" />
+    <NavigationProperty Name="Block" Relationship="LawsuitDBModel.FK_LawsuitBlock_Blocks" FromRole="LawsuitBlock" ToRole="Block" />
+  </EntityType>
+  <EntityType Name="Lawsuit">
+    <Key>
+      <PropertyRef Name="LawsuitId" />
+    </Key>
+    <Property Name="LawsuitId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="LawsuitName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="SubCategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="LawsuitBlocks" Relationship="LawsuitDBModel.FK_LawsuitBlocks_Lawsuits" FromRole="Lawsuits" ToRole="LawsuitBlock" />
+    <NavigationProperty Name="SubCategory" Relationship="LawsuitDBModel.FK_Lawsuits_SubCategories" FromRole="Lawsuits" ToRole="SubCategories" />
+    <Property Type="Int32" Name="LawsuitWeight" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubCategory">
+    <Key>
+      <PropertyRef Name="SubCategoryId" />
+    </Key>
+    <Property Name="SubCategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SubCategoryName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="LawsuitDBModel.FK_SubCategory_Category" FromRole="SubCategories" ToRole="Categories" />
+    <NavigationProperty Name="Lawsuits" Relationship="LawsuitDBModel.FK_Lawsuits_SubCategories" FromRole="SubCategories" ToRole="Lawsuits" />
+    <Property Type="Int32" Name="SubCategoryWeight" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_SubCategory_Category">
+    <End Role="Categories" Type="LawsuitDBModel.Category" Multiplicity="1" />
+    <End Role="SubCategories" Type="LawsuitDBModel.SubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="SubCategories">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LawsuitBlocks_Lawsuits">
+    <End Role="Lawsuits" Type="LawsuitDBModel.Lawsuit" Multiplicity="1" />
+    <End Role="LawsuitBlock" Type="LawsuitDBModel.LawsuitBlock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lawsuits">
+        <PropertyRef Name="LawsuitId" />
+      </Principal>
+      <Dependent Role="LawsuitBlock">
+        <PropertyRef Name="LawsuitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Lawsuits_SubCategories">
+    <End Role="SubCategories" Type="LawsuitDBModel.SubCategory" Multiplicity="1" />
+    <End Role="Lawsuits" Type="LawsuitDBModel.Lawsuit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubCategories">
+        <PropertyRef Name="SubCategoryId" />
+      </Principal>
+      <Dependent Role="Lawsuits">
+        <PropertyRef Name="SubCategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Block">
+    <Key>
+      <PropertyRef Name="BlockId" />
+    </Key>
+    <Property Type="Int32" Name="BlockId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="BlockName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="BlockText" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="BlockIncludeType" Nullable="false" />
+    <Property Type="Int32" Name="BlockWeight" Nullable="false" />
+    <Property Type="Int32" Name="BlockContentType" Nullable="false" />
+    <Property Type="Int32" Name="FieldId" />
+    <Property Type="Int32" Name="BlockStyleId" Nullable="false" />
+    <NavigationProperty Name="Parts" Relationship="LawsuitDBModel.FK_Parts_Blocks" FromRole="Block" ToRole="Part" />
+  </EntityType>
+  <Association Name="FK_Blocks_BlockStyles">
+    <End Type="LawsuitDBModel.BlockStyle" Role="BlockStyle" Multiplicity="1" />
+    <End Type="LawsuitDBModel.Block" Role="Block" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BlockStyle">
+        <PropertyRef Name="BlockStyleId" />
+      </Principal>
+      <Dependent Role="Block">
+        <PropertyRef Name="BlockStyleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Blocks_Fields">
+    <End Type="LawsuitDBModel.Field" Role="Field" Multiplicity="0..1" />
+    <End Type="LawsuitDBModel.Block" Role="Block" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Field">
+        <PropertyRef Name="FieldId" />
+      </Principal>
+      <Dependent Role="Block">
+        <PropertyRef Name="FieldId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LawsuitBlock_Blocks">
+    <End Type="LawsuitDBModel.Block" Role="Block" Multiplicity="1" />
+    <End Type="LawsuitDBModel.LawsuitBlock" Role="LawsuitBlock" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Block">
+        <PropertyRef Name="BlockId" />
+      </Principal>
+      <Dependent Role="LawsuitBlock">
+        <PropertyRef Name="BlockId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Part">
+    <Key>
+      <PropertyRef Name="PartId" />
+    </Key>
+    <Property Type="Int32" Name="PartId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="PartName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="PartText" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="PartStyleId" Nullable="false" />
+    <Property Type="Int32" Name="PartWeight" Nullable="false" />
+    <Property Type="Int32" Name="BlockId" Nullable="false" />
+    <NavigationProperty Name="Block" Relationship="LawsuitDBModel.FK_Parts_Blocks" FromRole="Part" ToRole="Block" />
+  </EntityType>
+  <Association Name="FK_Parts_Blocks">
+    <End Type="LawsuitDBModel.Block" Role="Block" Multiplicity="1" />
+    <End Type="LawsuitDBModel.Part" Role="Part" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Block">
+        <PropertyRef Name="BlockId" />
+      </Principal>
+      <Dependent Role="Part">
+        <PropertyRef Name="BlockId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

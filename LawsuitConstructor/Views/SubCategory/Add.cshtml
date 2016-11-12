@@ -1,0 +1,47 @@
+﻿@model MVC.Models.SubCategory
+
+@{
+    ViewBag.Title = MVC.Translate.It("New subcategory");
+}
+
+<h2> @ViewBag.Title </h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @MVC.Translate.It("Name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubCategoryName )
+            @Html.ValidationMessageFor(model => model.SubCategoryName)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Category")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CategoryId, new SelectList(ViewData["Categories"] as IEnumerable<MVC.Models.Category>, "CategoryId", "CategoryName"))
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Weight in list")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SubCategoryWeight)
+            @Html.ValidationMessageFor(model => model.SubCategoryWeight)
+        </div>
+        <p>
+            <input type="submit" value="@MVC.Translate.It("Add")" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink(MVC.Translate.It("To list"), "Index", "SubCategory")
+</div>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }

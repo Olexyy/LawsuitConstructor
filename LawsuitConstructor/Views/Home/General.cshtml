@@ -1,0 +1,40 @@
+﻿@model List<MVC.Models.Category>
+@{
+    ViewBag.Title = MVC.Translate.It("Categories of lawsuits");
+}
+<script src="@Url.Content("~/Scripts/custom/toggle-onclick.js")"></script>
+<h2> @ViewBag.Title </h2>
+<div id="view-zone-1ref">
+    <ul class="toggle1">
+    @if (Model.Count == 0)
+    {
+        <p> @MVC.Translate.It("List is empty") </p>
+    }
+    else
+    {
+        foreach (var key in Model)
+        {
+        <li> @key.CategoryName
+            <ul class="collapsible1 toggle2">
+                @foreach (var subCatrgory in key.SubCategories)
+                {
+                <li>@subCatrgory.SubCategoryName
+                    <ul class="collapsible2">
+                        @foreach (var lawsuit in subCatrgory.Lawsuits)
+                        {
+                            <li> @Html.ActionLink(@lawsuit.LawsuitName, "Index", "LawsuitConstruct", new { lawsuitId = lawsuit.LawsuitId }, null) 
+                                @if(lawsuit.WebResourceId != null){
+                                <description class="description"> @Html.ActionLink(MVC.Translate.It("Lawsuit features"), "View", "Home", new { webResourceId = lawsuit.WebResourceId }, null) </description>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </li>
+                }
+            </ul>
+        </li>
+        }
+    }
+    </ul>
+</div>
+<p> @Html.ActionLink(MVC.Translate.It("Back"), "Index", "Home") </p>

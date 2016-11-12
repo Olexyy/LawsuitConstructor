@@ -1,0 +1,90 @@
+﻿@model MVC.Models.Block
+
+@{
+    ViewBag.Title = MVC.Translate.It("Change block");
+    var fieldsNoMarks = ViewData[MVC.Defines.FieldsTypesEnum.NoMarks.ToString()] as List<MVC.Models.Field>;
+    var message = TempData["Message"] as String;
+    var groups = ViewData["Groups"] as List<MVC.Models.Group>;
+}
+
+<h2> @ViewBag.Title </h2>
+<h4> @message </h4>
+<script src="@Url.Content("~/Scripts/custom/toggle-onchange.js")"></script>
+@using (Html.BeginForm()) { @Html.AntiForgeryToken()  @Html.ValidationSummary(true)
+<fieldset>
+    <div class="editor-label">
+        @MVC.Translate.It("Name")
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.BlockName)
+        @Html.ValidationMessageFor(model => model.BlockName)
+    </div>
+    <div class="editor-label">
+        @MVC.Translate.It("Field(-s) include type")
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.BlockIncludeType, MVC.Defines.BlockIncludeTypes, new { @id = "trigger"})
+        @Html.ValidationMessageFor(model => model.BlockIncludeType)
+    </div>
+    <div id="toggle"> </div>
+    <div class="editor-label toggle">
+        @MVC.Translate.It("Field")
+    </div>
+    <div class="editor-field toggle">
+        @Html.DropDownListFor(model => model.FieldId, new SelectList(fieldsNoMarks, "FieldId", "FieldName"))
+        @Html.ValidationMessageFor(model => model.FieldId)
+    </div>
+    <div class="editor-label">
+        @MVC.Translate.It("Block content type")
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.BlockContentType, MVC.Defines.BlockContentTypes)
+        @Html.ValidationMessageFor(model => model.BlockContentType)
+    </div>
+    <div class="editor-label">
+        @MVC.Translate.It("Group")
+    </div>
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.GroupId, new SelectList(groups, "GroupId", "GroupName"))
+        @Html.ValidationMessageFor(model => model.GroupId)
+    </div>
+    <div class="editor-label">
+        @MVC.Translate.It("Weight in list")
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.BlockWeight)
+        @Html.ValidationMessageFor(model => model.BlockWeight)
+    </div>
+    @{ var fields = MVC.Utils.GetBlockParts(Model); }
+        @if(fields.Count == 0)
+        {
+            <p> @MVC.Translate.It("Block has no text parts") </p>    
+        }
+        else
+        {
+            <div> @MVC.Translate.It("Text parts") </div>
+            <ul>
+            @foreach (MVC.Models.Part part in MVC.Utils.GetBlockParts(Model))
+            {
+                <li> @Html.ActionLink(part.PartName, "Edit", "Part", new { partId = part.PartId }, null) </li>
+            }
+            </ul>
+        }
+    <p>
+        <button name="button" onclick="submit" value="preview">@MVC.Translate.It("Preview")</button>
+        <button name="button" onclick="submit" value="part">@MVC.Translate.It("Submit and add text part")</button>
+        <input type="submit" value="@MVC.Translate.It("Submit")" />
+        <button name="button" onclick="submit" value="remove">@MVC.Translate.It("Remove")</button>
+    </p>
+</fieldset>
+}
+<div>
+    @Html.ActionLink(MVC.Translate.It("To list"), "Index", "Block")
+</div>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }
+

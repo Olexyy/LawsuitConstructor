@@ -1,0 +1,37 @@
+﻿@model List<MVC.Models.Category>
+@{
+    ViewBag.Title = MVC.Translate.It("General list");
+}
+<h2> @ViewBag.Title </h2>
+<div id="view-zone-4ref">
+    <ul>
+    @if(Model.Count == 0){
+        <p> @MVC.Translate.It("List is empty") </p>
+    }
+    @foreach(var category in Model){
+        <li> @Html.ActionLink(@category.CategoryName, "Edit", "Category", new { categoryId = category.CategoryId }, null) </li>
+        <ul>
+            @foreach (var subCategory in MVC.Utils.GetSubCategoryList(category)){
+                <li> @Html.ActionLink(@subCategory.SubCategoryName, "Edit", "SubCategory", new { subCategoryId = subCategory.SubCategoryId }, null) </li>
+                <ul>
+                @foreach (var lawsuit in MVC.Utils.GetLawsuitList(subCategory))
+                {
+                    <li> @Html.ActionLink(@lawsuit.LawsuitName, "Edit", "Lawsuit", new { lawsuitId = lawsuit.LawsuitId }, null) 
+                        @if(lawsuit.WebResourceId != null){
+                        <description class="description"> @Html.ActionLink(MVC.Translate.It("Web resource"), "View", "Home", new { webResourceId = lawsuit.WebResourceId }, null) </description>
+                    }
+                    </li>
+                    <description class="description"> @Html.ActionLink(MVC.Translate.It("Add, delete blocks..."), "Index", "LawsuitBlock", new { lawsuitId = lawsuit.LawsuitId }, null) </description>
+                }
+                </ul>
+            }
+        </ul>
+    }
+    </ul>
+</div>
+<p>
+    @Html.ActionLink(MVC.Translate.It("New category"), "Add", "Category") <br>
+    @Html.ActionLink(MVC.Translate.It("New subcategory"), "Add", "SubCategory") <br> 
+    @Html.ActionLink(MVC.Translate.It("New lawsuit"), "Add", "Lawsuit") <br>
+    @Html.ActionLink(MVC.Translate.It("Administrative menu"), "Admin", "Admin") 
+</p>

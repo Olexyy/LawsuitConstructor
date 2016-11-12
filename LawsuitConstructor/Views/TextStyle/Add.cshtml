@@ -1,0 +1,81 @@
+﻿@model MVC.Models.TextStyle
+
+@{
+    ViewBag.Title = MVC.Translate.It("New text style");
+}
+
+<h2> @ViewBag.Title </h2>
+
+@using (Html.BeginForm()) { @Html.AntiForgeryToken()  @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @MVC.Translate.It("Name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TextStyleName)
+            @Html.ValidationMessageFor(model => model.TextStyleName)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Weight in list")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TextStyleWeight)
+            @Html.ValidationMessageFor(model => model.TextStyleWeight)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Margin type")
+        </div>
+        <div class="editor-field toggle">
+            @Html.DropDownListFor(model => model.TextStyleMarginLeft, MVC.Defines.TextStyleMarginLeft)
+            @Html.ValidationMessageFor(model => model.TextStyleMarginLeft)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Align type")
+        </div>
+        <div class="editor-field toggle">
+            @Html.DropDownListFor(model => model.TextStyleTextAlign, MVC.Defines.TextStyleTextAlign)
+            @Html.ValidationMessageFor(model => model.TextStyleTextAlign)
+        </div>
+        <fieldset>
+            <legend>@MVC.Translate.It("Font style")</legend>
+            <div class="editor-label">
+                @MVC.Translate.It("Font size")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.TextStyleTag, MVC.Defines.TextStyleTags)
+                @Html.ValidationMessageFor(model => model.TextStyleTag)
+            </div>
+            <div class="editor-label">
+                @MVC.Translate.It("Bold font")
+            </div>
+            <div class="editor-field toggle">
+                @Html.CheckBoxFor(Model => Model.TextStyleStong)
+            </div>
+            <div class="editor-label">
+                @MVC.Translate.It("Underlined font")
+            </div>
+            <div class="editor-field toggle">
+                @Html.CheckBoxFor(Model => Model.TextStyleUnderline)
+            </div>
+            <div class="editor-label">
+                @MVC.Translate.It("Italic font")
+            </div>
+            <div class="editor-field toggle">
+                @Html.CheckBoxFor(Model => Model.TextStyleItalic)
+            </div>
+        </fieldset>
+        <p>
+            <input type="submit" value="@MVC.Translate.It("Add")" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink(MVC.Translate.It("To list"), "Index", "Block")
+</div>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }

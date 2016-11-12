@@ -1,0 +1,77 @@
+﻿@model MVC.Models.Part
+@{
+    ViewBag.Title = MVC.Translate.It("Change text part"); ;
+    var fieldsNoMarks = ViewData[MVC.Defines.FieldsTypesEnum.NoMarks.ToString()] as List<MVC.Models.Field>;
+    var fieldsWithMarks = ViewData[MVC.Defines.FieldsTypesEnum.WithMarks.ToString()] as List<MVC.Models.Field>;
+}
+<h2> @ViewBag.Title </h2>
+<script src="@Url.Content("~/Scripts/custom/insert-into-selection.js")"></script>
+@using (Html.BeginForm())
+{ @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <table>
+            <tr>
+                <td class="half-screen">
+                    <div class="editor-label">
+                        @MVC.Translate.It("Name")
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.PartName)
+                        @Html.ValidationMessageFor(model => model.PartName)
+                    </div>
+                    <div class="editor-label">
+                        @MVC.Translate.It("Weight in list")
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.PartWeight)
+                        @Html.ValidationMessageFor(model => model.PartWeight)
+                    </div>
+                    <div class="editor-label">
+                        @MVC.Translate.It("Style")
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.TextStyleId, new SelectList(ViewData["TextStyles"] as List<MVC.Models.TextStyle>, "TextStyleId", "TextStyleName"))
+                        @Html.ValidationMessageFor(model => model.TextStyleId)
+                    </div>
+                    <div class="editor-label">
+                        @MVC.Translate.It("Text")
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.PartText, new { @id = "textblock" })
+                        @Html.ValidationMessageFor(model => model.PartText)
+                    </div>
+                    @MVC.Translate.It("Warning: The text can only be used predefined tokens can add them when creating a new field")
+                    <div class="editor-field">
+                        @Html.HiddenFor(model => model.BlockId)
+                    </div>
+                    <p>
+                        <button name="button" onclick="submit" value="preview">@MVC.Translate.It("Preview")</button>
+                        <input type="submit" value="@MVC.Translate.It("Change")" />
+                        <button name="button" onclick="submit" value="remove">@MVC.Translate.It("Remove")</button>
+                    </p>
+                </td>
+                <td class="half-screen">
+                    @MVC.Translate.It("Markers")
+                    <div id="markers-tab">
+                        <ul>
+                            @foreach (var marker in fieldsWithMarks)
+                            {
+                                <li class="insert" id="@marker.FieldMarker">@marker.FieldMarker - @marker.FieldText</li>
+                            }
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink(@MVC.Translate.It("Back"), "Add", "Block", new { blockId = Model.BlockId }, null)
+</div>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }

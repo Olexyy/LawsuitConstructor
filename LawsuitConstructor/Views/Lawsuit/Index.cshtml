@@ -1,0 +1,23 @@
+﻿@model List<MVC.Models.Lawsuit>
+@{
+    ViewBag.Title = MVC.Translate.It("Lawsuits");
+    string message = (string)TempData["Message"];
+}
+<h2> @ViewBag.Title </h2>
+<h4> @message </h4>
+<div id="view-zone">
+    <ul>
+    @if(Model.Count == 0){
+        <p> @MVC.Translate.It("List is empty") </p>
+    }
+    @foreach(var lawsuit in Model){
+        <li> @Html.ActionLink(@lawsuit.LawsuitName, "Edit", "Lawsuit", new { lawsuitId = lawsuit.LawsuitId }, null) 
+            @if(lawsuit.WebResourceId != null){
+                <description class="description"> @Html.ActionLink(MVC.Translate.It("Web resource"), "Edit", "WebResource", new { webResourceId = lawsuit.WebResourceId }, null) </description>
+            } </li>
+        <description class="description"> @Html.ActionLink(MVC.Translate.It("Add, delete blocks..."), "Index", "LawsuitBlock", new { lawsuitId = lawsuit.LawsuitId }, null) </description>
+    }
+    </ul>
+</div>
+<p>@Html.ActionLink(MVC.Translate.It("Add new"), "Add", "Lawsuit")<br />
+@Html.ActionLink(MVC.Translate.It("Administrative menu"), "Admin", "Admin")</p>

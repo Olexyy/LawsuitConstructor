@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LawsuitDBModelStoreContainer" CdmEntityContainer="LawsuitDB">
+    <EntitySetMapping Name="BlockStyles">
+      <EntityTypeMapping TypeName="LawsuitDBModel.BlockStyle">
+        <MappingFragment StoreEntitySet="BlockStyles">
+          <ScalarProperty Name="BlockStyleId" ColumnName="BlockStyleId" />
+          <ScalarProperty Name="BlockStyleName" ColumnName="BlockStyleName" />
+          <ScalarProperty Name="BlockStyleWeight" ColumnName="BlockStyleWeight" />
+          <ScalarProperty Name="BlockStyleTag" ColumnName="BlockStyleTag" />
+          <ScalarProperty Name="BlockStyleMarginLeft" ColumnName="BlockStyleMarginLeft" />
+          <ScalarProperty Name="BlockStyleTextAlign" ColumnName="BlockStyleTextAlign" />
+          <ScalarProperty Name="BlockStyleStong" ColumnName="BlockStyleStong" />
+          <ScalarProperty Name="BlockStyleUnderline" ColumnName="BlockStyleUnderline" />
+          <ScalarProperty Name="BlockStyleItalic" ColumnName="BlockStyleItalic" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="LawsuitDBModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="CategoryWeight" ColumnName="CategoryWeight" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fields">
+      <EntityTypeMapping TypeName="LawsuitDBModel.Field">
+        <MappingFragment StoreEntitySet="Fields">
+          <ScalarProperty Name="FieldWeight" ColumnName="FieldWeight" />
+          <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+          <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+          <ScalarProperty Name="FieldDataType" ColumnName="FieldDataType" />
+          <ScalarProperty Name="FieldText" ColumnName="FieldText" />
+          <ScalarProperty Name="FieldMarker" ColumnName="FieldMarker" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LawsuitBlocks">
+      <EntityTypeMapping TypeName="LawsuitDBModel.LawsuitBlock">
+        <MappingFragment StoreEntitySet="LawsuitBlock">
+          <ScalarProperty Name="LawsuitBlockWeight" ColumnName="LawsuitBlockWeight" />
+          <ScalarProperty Name="RelationId" ColumnName="RelationId" />
+          <ScalarProperty Name="LawsuitId" ColumnName="LawsuitId" />
+          <ScalarProperty Name="BlockId" ColumnName="BlockId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lawsuits">
+      <EntityTypeMapping TypeName="LawsuitDBModel.Lawsuit">
+        <MappingFragment StoreEntitySet="Lawsuits">
+          <ScalarProperty Name="LawsuitWeight" ColumnName="LawsuitWeight" />
+          <ScalarProperty Name="LawsuitId" ColumnName="LawsuitId" />
+          <ScalarProperty Name="LawsuitName" ColumnName="LawsuitName" />
+          <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubCategories">
+      <EntityTypeMapping TypeName="LawsuitDBModel.SubCategory">
+        <MappingFragment StoreEntitySet="SubCategories">
+          <ScalarProperty Name="SubCategoryWeight" ColumnName="SubCategoryWeight" />
+          <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+          <ScalarProperty Name="SubCategoryName" ColumnName="SubCategoryName" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Blocks">
+      <EntityTypeMapping TypeName="LawsuitDBModel.Block">
+        <MappingFragment StoreEntitySet="Blocks">
+          <ScalarProperty Name="BlockStyleId" ColumnName="BlockStyleId" />
+          <ScalarProperty Name="FieldId" ColumnName="FieldId" />
+          <ScalarProperty Name="BlockContentType" ColumnName="BlockContentType" />
+          <ScalarProperty Name="BlockWeight" ColumnName="BlockWeight" />
+          <ScalarProperty Name="BlockIncludeType" ColumnName="BlockIncludeType" />
+          <ScalarProperty Name="BlockText" ColumnName="BlockText" />
+          <ScalarProperty Name="BlockName" ColumnName="BlockName" />
+          <ScalarProperty Name="BlockId" ColumnName="BlockId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Parts">
+      <EntityTypeMapping TypeName="LawsuitDBModel.Part">
+        <MappingFragment StoreEntitySet="Parts">
+          <ScalarProperty Name="BlockId" ColumnName="BlockId" />
+          <ScalarProperty Name="PartWeight" ColumnName="PartWeight" />
+          <ScalarProperty Name="PartStyleId" ColumnName="PartStyleId" />
+          <ScalarProperty Name="PartText" ColumnName="PartText" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+          <ScalarProperty Name="PartId" ColumnName="PartId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

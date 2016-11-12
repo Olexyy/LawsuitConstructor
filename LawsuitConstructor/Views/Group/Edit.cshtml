@@ -1,0 +1,56 @@
+﻿@model MVC.Models.Group
+
+@{
+    ViewBag.Title = MVC.Translate.It("Change group");
+}
+
+<h2> @ViewBag.Title </h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-label">
+            @MVC.Translate.It("Name")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GroupName)
+            @Html.ValidationMessageFor(model => model.GroupName)
+        </div>
+        <div class="editor-label">
+            @MVC.Translate.It("Weight in list")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GroupWeight)
+            @Html.ValidationMessageFor(model => model.GroupWeight)
+        </div>
+        <ul>
+            @MVC.Translate.It("Blocks"):
+            @if (Model.Blocks.ToList().Count > 0)
+            {
+                foreach (MVC.Models.Block block in Model.Blocks)
+                {
+                    <li> @block.BlockName </li>
+                }
+            }
+            else
+            {
+                <li> @MVC.Translate.It("List is empty") </li>
+            }
+        </ul>
+        <p>
+            <input type="submit" value="@MVC.Translate.It("Change")" />
+            <button name="button" value="remove">@MVC.Translate.It("Remove")</button>
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink(MVC.Translate.It("To list"), "Index", "Group")
+</div>
+@{/*
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+   */ }

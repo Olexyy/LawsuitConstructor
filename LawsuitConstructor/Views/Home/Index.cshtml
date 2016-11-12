@@ -1,0 +1,13 @@
+﻿@model MVC.Models.WebResource
+@{
+    ViewBag.Title = MVC.Translate.It("Web portal of law help | Protect your rights");
+}
+<h2> @Model.WebResourceTitle </h2>
+<div id="view-zone-3ref">
+    @Html.Raw(Model.WebResourceBody)
+</div>
+<p>
+    @Html.ActionLink(MVC.Translate.It("Categories of lawsuits"), "General", "Home") <br />
+    @Html.ActionLink(MVC.Translate.It("Advices"), "Advices", "Home") <br />
+    @Html.ActionLink(MVC.Translate.It("СourtFee"), "СourtFee", "Home")
+</p>

@@ -1,0 +1,43 @@
+﻿@model Dictionary<String, List<MVC.Models.Block>>
+@{
+    ViewBag.Title = MVC.Translate.It("Blocks");
+    int count = 0;
+    foreach (string key in Model.Keys){
+        count += Model[key].Count;
+    }
+    string message = (string)TempData["Message"];
+    var groups = ViewData["Groups"] as List<MVC.Models.Group>;
+}
+<script src="@Url.Content("~/Scripts/custom/toggle-onclick.js")"></script>
+<h2> @ViewBag.Title </h2>
+<h4> @message </h4>
+<div id="view-zone">
+    <ul class="toggle1">
+    @if (count == 0)
+    {
+        <p> @MVC.Translate.It("List is empty") </p>
+    }
+    else
+    {
+        foreach (string key in Model.Keys){
+        <li> @key 
+            <ul class="collapsible1 toggle2">
+                @foreach(MVC.Models.Group group in groups){
+                <li>@group.GroupName
+                    <ul class="collapsible2">
+                        @foreach (MVC.Models.Block block in Model[key])
+                        {
+                            <li> @Html.ActionLink(@block.BlockName, "Edit", "Block", new { blockId = block.BlockId }, null) </li>
+                        }
+                    </ul>
+                </li>
+                }
+            </ul>
+        </li>
+        }
+    }
+    </ul>
+</div>
+<p>@Html.ActionLink(MVC.Translate.It("New block"), "Add", "Block")<br/>
+@Html.ActionLink(MVC.Translate.It("Administrative menu"), "Admin", "Admin")</p>
+
